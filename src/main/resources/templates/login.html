@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>登陆</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/css/login.css" media="all"/>
+
+</head>
+<body>
+<div class="m-login-bg">
+    <div class="m-login">
+        <h3>后台系统登录</h3>
+        <div class="m-login-warp">
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <input type="text" name="title" required="required" lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input"/>
+                </div>
+                <div class="layui-form-item">
+                    <input type="text" name="password" required="required" lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input"/>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <input type="text" name="verity" required="required" lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input"/>
+                    </div>
+                    <div class="layui-inline">
+                        <img class="verifyImg" onclick="this.src=this.src+'?c='+Math.random();" src="../../static/admin/images/login/yzm.jpg" />
+                    </div>
+                </div>
+                <div class="layui-form-item m-login-btn">
+                    <div class="layui-inline">
+                        <button class="layui-btn layui-btn-normal"  lay-filter="login">登录</button>
+                    </div>
+                    <div class="layui-inline">
+                        <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

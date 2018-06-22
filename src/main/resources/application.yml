@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  mvc:
+    static-path-pattern: /**
+  session:
+    store-type: none
+  datasource:
+    url: jdbc:mysql://192.168.117.134:3306/hive?serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  jpa:
+      hibernate:
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        #ddl-auto: create-drop
+      show-sql: true
+      database-platform: org.hibernate.dialect.MySQLDialect
+      properties:
+        "hibernate.cache.use_second_level_cache": "false"
+        "hibernate.cache.use_query_cache": "true"
+        "hibernate.cache.region.factory_class": "org.hibernate.cache.ehcache.EhCacheRegionFactory"
+  thymeleaf:
+      mode: HTML5
+      encoding: UTF-8
+      content-type: text/html
+      cache: false
+
+logging:
+  level:
+    root: info
+  org:
+    springframework:
+      web: info
+    hibernate: info
+
+
