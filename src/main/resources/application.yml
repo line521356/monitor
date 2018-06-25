@@ -7,7 +7,7 @@ spring:
   session:
     store-type: none
   datasource:
-    url: jdbc:mysql://192.168.117.134:3306/hive?serverTimezone=UTC
+    url: jdbc:mysql://192.168.117.134:3306/monitor?serverTimezone=UTC
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -16,7 +16,7 @@ spring:
       hibernate:
         naming:
           physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        #ddl-auto: create-drop
+        ddl-auto: create-drop
       show-sql: true
       database-platform: org.hibernate.dialect.MySQLDialect
       properties:
@@ -28,6 +28,7 @@ spring:
       encoding: UTF-8
       content-type: text/html
       cache: false
+      prefix: classpath:/templates/
 
 logging:
   level:

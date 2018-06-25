@@ -23,10 +23,10 @@
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-inline">
-                        <input type="text" name="verity" required="required" lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input"/>
+                        <input type="text" name="verity" required="required" lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input" />
                     </div>
                     <div class="layui-inline">
-                        <img class="verifyImg" onclick="this.src=this.src+'?c='+Math.random();" src="../../static/admin/images/login/yzm.jpg" />
+                        <img class="verifyImg"  onclick = "this.src='/verifyCode?d='+new Date()*1" src="/verifyCode" />
                     </div>
                 </div>
                 <div class="layui-form-item m-login-btn">
