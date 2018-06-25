@@ -1,10 +1,14 @@
 package com.dongfang.monitor.controller.login;
 
+import com.dongfang.monitor.model.User;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -14,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Map;
 
 @Controller
 public class LoginController {
@@ -23,11 +28,11 @@ public class LoginController {
 
     /**
      * 跳登录页
-     * @param model
+     * @param httpSession
      * @return
      */
-    @GetMapping("/toLogin")
-    public String toLogin(Model model){
+    @GetMapping("/login")
+    public String toLogin(HttpSession httpSession){
         return "login";
     }
 
@@ -45,7 +50,7 @@ public class LoginController {
         try {
 
             String createText = defaultKaptcha.createText();
-            httpSession.setAttribute("vrifyCode", createText);
+            httpSession.setAttribute("verifyCode", createText);
 
             BufferedImage challenge = defaultKaptcha.createImage(createText);
             ImageIO.write(challenge, "jpg", jpegOutputStream);
@@ -64,6 +69,35 @@ public class LoginController {
         responseOutputStream.write(captchaChallengeAsJpeg);
         responseOutputStream.flush();
         responseOutputStream.close();
+    }
+
+    @PostMapping("/login")
+    public String login(HttpServletRequest request, Model model){
+        String exception = (String) request.getAttribute("shiroLoginFailure");
+        System.out.println("exception=" + exception);
+        String msg = "";
+        if (exception != null) {
+            if (UnknownAccountException.class.getName().equals(exception)) {
+                msg = "账号不存在：";
+            } else if (IncorrectCredentialsException.class.getName().equals(exception)) {
+                msg = "密码不正确：";
+            } else if ("kaptchaValidateFailed".equals(exception)) {
+                msg = "验证码错误";
+            } else {
+                msg = exception;
+            }
+        }
+        model.addAttribute("msg",msg);
+
+        return "/login";
+    }
+
+    @GetMapping("/index")
+    public String index(HttpSession httpSession){
+        User user = new User();
+        user.setUsername("admin");
+        httpSession.setAttribute("user",user);
+        return "index";
     }
 
 

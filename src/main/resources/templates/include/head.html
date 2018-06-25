@@ -1,4 +1,4 @@
-<div class="main-layout-header">
+<div class="main-layout-header" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="menu-btn" id="hideBtn">
         <a href="javascript:;">
             <span class="iconfont">&#xe60e;</span>
@@ -7,7 +7,7 @@
     <ul class="layui-nav" lay-filter="rightNav">
         <li class="layui-nav-item"><a href="javascript:;" data-url="email.html" data-id='4' data-text="邮件系统"><i class="iconfont">&#xe603;</i></a></li>
         <li class="layui-nav-item">
-            <a href="javascript:;" data-url="admin-info.html" data-id='5' data-text="个人信息">超级管理员</a>
+            <a href="javascript:;" data-url="admin-info.html" data-id='5' data-text="个人信息"><span th:text="${session.user.username}"/> </a>
         </li>
         <li class="layui-nav-item"><a href="javascript:;">退出</a></li>
     </ul>
