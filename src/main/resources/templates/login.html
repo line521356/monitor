@@ -40,12 +40,17 @@
                 </div>
             </form>
             <input type="hidden" id="msg" th:value="${msg}"/>
+            <input type="hidden" id="is_login" th:value="${session.user_session_key} ne null"/>
         </div>
     </div>
 </div>
 <script src="/layui/layui.js" charset="utf-8"></script>
 <script src="/lib/jquery-3.3.1.min.js"></script>
 <script >
+
+    if($("#is_login").val()){
+        window.location.href = "/index";
+    }
 
     if($("#msg").val()){
         alert_box($("#msg").val());
