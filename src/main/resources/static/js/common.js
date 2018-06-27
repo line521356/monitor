@@ -9,6 +9,7 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 		layer = layui.layer,
 		$ = layui.jquery,
 		dialog = layui.dialog;
+
 	//获取当前iframe的name值
 	var iframeObj = $(window.frameElement).attr('name');
 	//全选
@@ -109,6 +110,9 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 		parent.page("菜单编辑", url + "?id=" + id, iframeObj, w = "700px", h = "620px");
 		return false;
 	})
+
+
+
 });
 
 /**

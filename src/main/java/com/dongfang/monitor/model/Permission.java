@@ -1,39 +1,57 @@
 package com.dongfang.monitor.model;
 
+import com.dongfang.monitor.enums.ResourceTypeEnum;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@Table(name = "permission")
 public class Permission implements Serializable {
 
-    @Id@GeneratedValue
-    private Integer id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
+    @Column(name = "name")
     private String name;
 
-    @Column(columnDefinition="enum('menu','button')")
-    private String resourceType;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "resource_type")
+    private ResourceTypeEnum resourceType;
 
+    @Column(name = "url")
     private String url;
 
+    @Column(name = "permission")
     private String permission;
 
-    private Long parentId;
+    @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "parent_id",nullable = true)
+    private Permission parentPermission;
 
-    private String parentIds;
-
+    @Column(name = "available")
     private Boolean available = Boolean.FALSE;
 
     @ManyToMany
-    @JoinTable(name="RolePermission",joinColumns={@JoinColumn(name="permissionId")},inverseJoinColumns={@JoinColumn(name="roleId")})
+    @JoinTable(name="role_permission",joinColumns={@JoinColumn(name="permission_id")},inverseJoinColumns={@JoinColumn(name="role_id")})
     private List<Role> roles;
 
-    public Integer getId() {
+    @OneToMany(targetEntity = Permission.class, cascade = { CascadeType.ALL }, mappedBy = "parentPermission")
+    @Fetch(FetchMode.SUBSELECT)
+    private List <Permission> childPermission;
+
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -45,11 +63,11 @@ public class Permission implements Serializable {
         this.name = name;
     }
 
-    public String getResourceType() {
+    public ResourceTypeEnum getResourceType() {
         return resourceType;
     }
 
-    public void setResourceType(String resourceType) {
+    public void setResourceType(ResourceTypeEnum resourceType) {
         this.resourceType = resourceType;
     }
 
@@ -69,20 +87,12 @@ public class Permission implements Serializable {
         this.permission = permission;
     }
 
-    public Long getParentId() {
-        return parentId;
+    public Permission getParentPermission() {
+        return parentPermission;
     }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
-
-    public String getParentIds() {
-        return parentIds;
-    }
-
-    public void setParentIds(String parentIds) {
-        this.parentIds = parentIds;
+    public void setParentPermission(Permission parentPermission) {
+        this.parentPermission = parentPermission;
     }
 
     public Boolean getAvailable() {
@@ -99,5 +109,13 @@ public class Permission implements Serializable {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<Permission> getChildPermission() {
+        return childPermission;
+    }
+
+    public void setChildPermission(List<Permission> childPermission) {
+        this.childPermission = childPermission;
     }
 }

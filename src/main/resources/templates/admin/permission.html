@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro"
+>
+<head>
+    <meta charset="UTF-8"/>
+    <title>index</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="/css/admin.css"/>
+</head>
+<body>
+
+<div class="page-content-wrap">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline tool-btn">
+                <button class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" data-url="/menuAddOrUpdate"><i class="layui-icon">&#xe654;</i></button>
+            </div>
+            <div class="layui-inline">
+                <input type="text" name="title" required="required" lay-verify="required" placeholder="请输入权限名称" autocomplete="off" class="layui-input"/>
+            </div>
+            <button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
+        </div>
+    </form>
+    <div class="layui-form" id="table-list">
+        <table class="layui-table" lay-skin="line">
+            <colgroup>
+                <col width="50"/>
+                <col class="hidden-xs" width="500"/>
+                <col class="hidden-xs" width="130"/>
+                <col class="hidden-xs" width="100"/>
+                <col class="hidden-xs" width="100"/>
+                <col/>
+                <col width="130"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"/></th>
+                <th class="hidden-xs">菜单名</th>
+                <th class="hidden-xs">展开子节点</th>
+                <th class="hidden-xs">父节点</th>
+                <th class="hidden-xs">url</th>
+                <th>菜单类型</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="permission : ${permissionList}">
+                <tr th:id='node+${permission.id}'   class="parent collapsed">
+                    <td><input type="checkbox" name="" lay-skin="primary" th:attr="data-id=${permission.id}" /></td>
+                    <td class="hidden-xs" th:text="${permission.name}">
+                    </td>
+                    <td><a class='layui-btn layui-btn-mini layui-btn-normal showSubBtn' th:attr="data-id=${permission.id}">+</a></td>
+                    <td class="hidden-xs" th:text="${permission.parentPermission?.name}"></td>
+                    <td class="hidden-xs" th:text="${permission.url}"></td>
+                    <td >目录
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-mini layui-btn-normal  add-btn" th:attr="data-id=${permission.id},data-url=@{/menuAddOrUpdate(type=addChild,parentId=${permission.id})}" ><i class="layui-icon">&#xe654;</i></button>
+                            <button class="layui-btn layui-btn-mini layui-btn-normal  add-btn" th:attr="data-id=${permission.id},data-url=@{/menuAddOrUpdate(type=edit,id=${permission.id})}" ><i class="layui-icon">&#xe642;</i></button>
+                            <button class="layui-btn layui-btn-mini layui-btn-danger add-btn" th:attr="data-id=${permission.id},data-url=@{/menuDelete(id=${permission.id})}"><i class="layui-icon">&#xe640;</i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr th:id='node+${child.id}' th:each="child : ${permission?.childPermission}" th:class="'child-node-'+${permission.id}+' parent collapsed'" style="display:none ;" th:attr="parentid=${permission.id}">
+                    <td><input type="checkbox" name="" lay-skin="primary" th:attr="data-id=${child.id}"/></td>
+                    <td class="hidden-xs" th:text="'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├─'+${child.name}">
+                    </td>
+                    <td></td>
+                    <td class="hidden-xs" th:text="${permission.name}"></td>
+                    <td class="hidden-xs" th:text="${child.url}"></td>
+                    <td >目录
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-mini layui-btn-normal  edit-btn" th:attr="data-id=${child.id}" data-url="menu-add.html"><i class="layui-icon">&#xe642;</i></button>
+                            <button class="layui-btn layui-btn-mini layui-btn-danger del-btn" th:attr="data-id=${child.id}" data-url="menu-add.html"><i class="layui-icon">&#xe640;</i></button>
+                        </div>
+                    </td>
+                </tr>
+            </th:block>
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<script src="/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/main.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/common.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    layui.use(['jquery'], function() {
+        var $=layui.jquery;
+        //栏目展示隐藏
+        $('.showSubBtn').on('click', function() {
+            var _this = $(this);
+            var id = _this.attr('data-id');
+            var parent = _this.parents('.parent');
+            var child = $('.child-node-' + id);
+            var childAll = $('tr[parentid=' + id + ']');
+            if(parent.hasClass('collapsed')) {
+                _this.html('-');
+                parent.addClass('expanded').removeClass('collapsed');
+                child.css('display', '');
+            } else {
+                _this.html('+');
+                parent.addClass('collapsed').removeClass('expanded');
+                child.css('display', 'none');
+                childAll.addClass('collapsed').removeClass('expanded').css('display', 'none');
+                childAll.find('.showSubBtn').html('+');
+            }
+
+        })
+    });
+</script>
+</body>
+</html>

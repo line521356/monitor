@@ -23,7 +23,6 @@ public class MyShiroRealm extends AuthorizingRealm{
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        System.out.println("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         User userInfo  = (User)principals.getPrimaryPrincipal();
         for(Role role:userInfo.getRoleList()){
@@ -38,11 +37,8 @@ public class MyShiroRealm extends AuthorizingRealm{
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token)
             throws AuthenticationException {
-        System.out.println("MyShiroRealm.doGetAuthenticationInfo()");
         String username = (String)token.getPrincipal();
-        System.out.println(token.getCredentials());
         User user = userService.findByUsername(username);
-        System.out.println("----->>userInfo="+user);
         if(user == null){
             return null;
         }

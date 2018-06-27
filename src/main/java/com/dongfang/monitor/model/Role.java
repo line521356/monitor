@@ -4,30 +4,35 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "role")
 public class Role {
 
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(name = "role")
     private String role;
 
+    @Column(name = "description")
     private String description;
 
+    @Column(name = "available")
     private Boolean available = Boolean.FALSE;
 
     @ManyToMany(fetch= FetchType.EAGER)
-    @JoinTable(name="RolePermission",joinColumns={@JoinColumn(name="roleId")},inverseJoinColumns={@JoinColumn(name="permissionId")})
+    @JoinTable(name="role_permission",joinColumns={@JoinColumn(name="role_id")},inverseJoinColumns={@JoinColumn(name="permission_id")})
     private List<Permission> permissionList;
 
     @ManyToMany
-    @JoinTable(name="UserRole",joinColumns={@JoinColumn(name="roleId")},inverseJoinColumns={@JoinColumn(name="uid")})
+    @JoinTable(name="user_role",joinColumns={@JoinColumn(name="role_id")},inverseJoinColumns={@JoinColumn(name="user_id")})
     private List<User> userList;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

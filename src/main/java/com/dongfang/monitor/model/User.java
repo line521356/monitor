@@ -5,24 +5,29 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@Table(name = "user")
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer uid;
+    private Long id;
 
-    @Column(unique =true)
+    @Column(unique =true,name = "username")
     private String username;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "salt")
     private String salt;
 
+    @Column(name = "state")
     private byte state;
 
     @ManyToMany(fetch= FetchType.EAGER)
-    @JoinTable(name = "UserRole", joinColumns = { @JoinColumn(name = "uid") }, inverseJoinColumns ={@JoinColumn(name = "roleId") })
+    @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns ={@JoinColumn(name = "role_id") })
     private List<Role> roleList;
 
     /**
@@ -33,12 +38,12 @@ public class User implements Serializable {
         return this.username+this.salt;
     }
 
-    public Integer getUid() {
-        return uid;
+    public Long getId() {
+        return id;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {

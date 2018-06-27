@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	  xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="renderer" content="webkit"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>添加按钮</title>
+		<link rel="stylesheet" href="/layui/css/layui.css" media="all"/>
+		<link rel="stylesheet" type="text/css" href="/css/admin.css"/>
+	</head>
+	<body>
+		<div class="wrap-container">
+			<form class="layui-form" style="width: 90%;padding-top: 20px;">
+					<input type="hidden" th:value="${id}"/>
+					<div class="layui-form-item">
+						<label class="layui-form-label">父节点：</label>
+						<div class="layui-input-block">
+							<select name="parentId" lay-verify="required">
+								<option value=""></option>
+								<option value="0">作为一级菜单</option>
+								<option th:each="permission:${permissionList}" th:value="${permission.id}" th:text="${permission.name}" ></option>
+							</select>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">名称：</label>
+						<div class="layui-input-block">
+							<input type="text" name="name" required="required" lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input"/>
+						</div>
+					</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">url：</label>
+					<div class="layui-input-block">
+						<input type="text" name="url" required="required" lay-verify="required" placeholder="请输入url" autocomplete="off" class="layui-input"/>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">权限code：</label>
+					<div class="layui-input-block">
+						<input type="text" name="permission" required="required" lay-verify="required" placeholder="请输入权限code" autocomplete="off" class="layui-input"/>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">类型：</label>
+					<div class="layui-input-block">
+						<select name="resourceType" lay-verify="required">
+							<option value=""></option>
+							<option value="0">目录</option>
+							<option value="1">按钮</option>
+						</select>
+					</div>
+				</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn layui-btn-normal" lay-submit="lay-submit" lay-filter="formDemo">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
+		</div>
+
+		<script src="/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			layui.use(['form','jquery'], function() {
+				var form = layui.form(),
+                    $ = layui.jquery;
+				form.render();
+				form.on('submit(formDemo)', function(data) {
+				    $.ajax({
+						url:"/addPermission",
+						type:"POST",
+						data:JSON.stringify(data.field),
+                        dataType:"json",
+                        contentType:"application/json",
+                        success:function(data){
+						    if(data.code == 0){
+                                layer.msg(data.msg);
+                                layer.close(layer.index);
+                                window.parent.location.reload();
+                            }else{
+                                layer.msg(data.msg);
+                                return false;
+							}
+						}
+					});
+				});
+			});
+		</script>
+	</body>
+
+</html>

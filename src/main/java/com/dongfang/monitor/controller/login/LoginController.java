@@ -1,6 +1,7 @@
 package com.dongfang.monitor.controller.login;
 
 import com.dongfang.monitor.model.User;
+import com.dongfang.monitor.utils.GlobalConstant;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -92,11 +93,15 @@ public class LoginController {
         return "/login";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession httpSession){
+        httpSession.removeAttribute(GlobalConstant.USER_SESSION_KEY);
+        return "/login";
+    }
+
     @GetMapping("/index")
     public String index(HttpSession httpSession){
-        User user = new User();
-        user.setUsername("admin");
-        httpSession.setAttribute("user",user);
+
         return "index";
     }
 
