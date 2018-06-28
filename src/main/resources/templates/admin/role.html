@@ -16,7 +16,7 @@
     <form class="layui-form" action="">
         <div class="layui-form-item">
             <div class="layui-inline tool-btn">
-                <button class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" data-url="/roleAddOrUpdate"><i class="layui-icon">&#xe654;</i></button>
+                <button class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" data-url="/admin/roleAddOrUpdate"><i class="layui-icon">&#xe654;</i></button>
             </div>
             <div class="layui-inline">
                 <input type="text" name="title" required="required" lay-verify="required" placeholder="请输入角色名称" autocomplete="off" class="layui-input"/>
@@ -47,8 +47,8 @@
                     <td class="hidden-xs" th:text="${role.description}"></td>
                     <td>
                         <div class="layui-inline">
-                            <button class="layui-btn layui-btn-mini layui-btn-normal  add-btn" th:attr="data-id=${role.id},data-url=@{/roleAddOrUpdate(id=${role.id})}"><i class="layui-icon">&#xe642;</i></button>
-                            <button class="layui-btn layui-btn-mini layui-btn-danger del-btn" th:attr="data-id=${role.id},data-url=@{/roleDelete(id=${role.id})}"><i class="layui-icon">&#xe640;</i></button>
+                            <button class="layui-btn layui-btn-mini layui-btn-normal  add-btn" th:attr="data-id=${role.id},data-url=@{/admin/roleAddOrUpdate(id=${role.id})}"><i class="layui-icon">&#xe642;</i></button>
+                            <button class="layui-btn layui-btn-mini layui-btn-danger del-btn" th:attr="data-id=${role.id},data-url=@{/admin/roleDelete(id=${role.id})}"><i class="layui-icon">&#xe640;</i></button>
                         </div>
                     </td>
                 </tr>

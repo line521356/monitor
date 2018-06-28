@@ -16,7 +16,7 @@
     <form class="layui-form" action="">
         <div class="layui-form-item">
             <div class="layui-inline tool-btn">
-                <button class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" data-url="/menuAddOrUpdate"><i class="layui-icon">&#xe654;</i></button>
+                <button class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" data-url="/admin/menuAddOrUpdate"><i class="layui-icon">&#xe654;</i></button>
             </div>
             <div class="layui-inline">
                 <input type="text" name="title" required="required" lay-verify="required" placeholder="请输入权限名称" autocomplete="off" class="layui-input"/>
@@ -57,14 +57,14 @@
                     <td><a class='layui-btn layui-btn-mini layui-btn-normal showSubBtn' th:attr="data-id=${permission.id}">+</a></td>
                     <td class="hidden-xs" th:text="${permission.parentPermission?.name}"></td>
                     <td class="hidden-xs" th:text="${permission.url}"></td>
-                    <td >目录
+                    <td th:text="${permission.resourceType.title}">
                     </td>
                     <td class="hidden-xs" th:text="${permission.permission}"></td>
                     <td>
                         <div class="layui-inline">
-                            <button class="layui-btn layui-btn-mini layui-btn-normal  add-btn" th:attr="data-id=${permission.id},data-url=@{/menuAddOrUpdate(type=addChild,id=${permission.id})}" ><i class="layui-icon">&#xe654;</i></button>
-                            <button class="layui-btn layui-btn-mini layui-btn-normal  add-btn" th:attr="data-id=${permission.id},data-url=@{/menuAddOrUpdate(type=edit,id=${permission.id})}" ><i class="layui-icon">&#xe642;</i></button>
-                            <button class="layui-btn layui-btn-mini layui-btn-danger del-btn" th:attr="data-id=${permission.id},data-url=@{/menuDelete(id=${permission.id})}"><i class="layui-icon">&#xe640;</i></button>
+                            <button class="layui-btn layui-btn-mini layui-btn-normal  add-btn" th:attr="data-id=${permission.id},data-url=@{/admin/menuAddOrUpdate(type=addChild,id=${permission.id})}" ><i class="layui-icon">&#xe654;</i></button>
+                            <button class="layui-btn layui-btn-mini layui-btn-normal  add-btn" th:attr="data-id=${permission.id},data-url=@{/admin/menuAddOrUpdate(type=edit,id=${permission.id})}" ><i class="layui-icon">&#xe642;</i></button>
+                            <button class="layui-btn layui-btn-mini layui-btn-danger del-btn" th:attr="data-id=${permission.id},data-url=@{/admin/menuDelete(id=${permission.id})}"><i class="layui-icon">&#xe640;</i></button>
                         </div>
                     </td>
                 </tr>
@@ -75,13 +75,13 @@
                     <td></td>
                     <td class="hidden-xs" th:text="${permission.name}"></td>
                     <td class="hidden-xs" th:text="${child.url}"></td>
-                    <td >按钮
+                    <td th:text="${child.resourceType.title}">
                     </td>
                     <td class="hidden-xs" th:text="${child.permission}"></td>
                     <td>
                         <div class="layui-inline">
-                            <button class="layui-btn layui-btn-mini layui-btn-normal  add-btn" th:attr="data-id=${child.id},data-url=@{/menuAddOrUpdate(type=edit,id=${child.id})}" data-url="menu-add.html"><i class="layui-icon">&#xe642;</i></button>
-                            <button class="layui-btn layui-btn-mini layui-btn-danger del-btn" th:attr="data-id=${child.id},data-url=@{/menuDelete(id=${child.id})}" ><i class="layui-icon">&#xe640;</i></button>
+                            <button class="layui-btn layui-btn-mini layui-btn-normal  add-btn" th:attr="data-id=${child.id},data-url=@{/admin/menuAddOrUpdate(type=edit,id=${child.id})}" data-url="menu-add.html"><i class="layui-icon">&#xe642;</i></button>
+                            <button class="layui-btn layui-btn-mini layui-btn-danger del-btn" th:attr="data-id=${child.id},data-url=@{/admin/menuDelete(id=${child.id})}" ><i class="layui-icon">&#xe640;</i></button>
                         </div>
                     </td>
                 </tr>

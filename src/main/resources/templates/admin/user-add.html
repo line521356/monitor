@@ -64,10 +64,22 @@
 				$("select").val($("#select_tmp").val());
                 form.render('select');
 				form.on('submit(formDemo)', function(data) {
+                    var array = new Array();
+                    $("input[name='roleList']:checked").each(function(){
+                        array.push($(this).val());
+                    });
+                    json = {
+                        id:$("input[name='id']").val(),
+                        username:$("input[name='username']").val(),
+                        password:$("input[name='password']").val(),
+                        name:$("input[name='name']").val(),
+                        roleList:array
+
+                    };
 				    $.ajax({
-						url:"/addPermission",
+						url:"/admin/addUser",
 						type:"POST",
-						data:JSON.stringify(data.field),
+						data:JSON.stringify(json),
                         async: false,
                         dataType:"json",
                         contentType:"application/json",

@@ -68,7 +68,7 @@
                 var xtree = new layuiXtree({
                     elem: 'permission_tree'
                     , form: form
-                    , data: '/getTreePermission'
+                    , data: '/admin/getTreePermission'
                     , isopen: true
                     , color: "#000"
                     , icon: {
@@ -96,7 +96,7 @@
 
                     };
 				    $.ajax({
-						url:"/addRole",
+						url:"/admin/addRole",
 						type:"POST",
 						data:JSON.stringify(json),
                         async: false,

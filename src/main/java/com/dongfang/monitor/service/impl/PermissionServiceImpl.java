@@ -18,7 +18,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public List<Permission> getAllParentPermission() {
-        return permissionRepository.findByResourceTypeAndAvailable(ResourceTypeEnum.MENU, true);
+        return permissionRepository.findByResourceTypeAndAvailable(ResourceTypeEnum.DIR, true);
     }
 
     @Override

@@ -20,7 +20,7 @@
 						<label class="layui-form-label" >父节点：</label>
 						<input type="hidden" id="select_tmp" th:value="${model?.parentPermission?.id}"/>
 						<div class="layui-input-block">
-							<select name="parentId" lay-verify="required" th:value="1">
+							<select name="parentId" id="parentId" lay-verify="required" th:value="1">
 								<option value="0">作为一级菜单</option>
 								<option th:each="permission:${permissionList}" th:value="${permission.id}" th:text="${permission.name}" ></option>
 							</select>
@@ -47,6 +47,17 @@
 					</div>
 				</div>
 
+				<div class="layui-form-item">
+					<label class="layui-form-label">类型：</label>
+					<div class="layui-input-block">
+						<input type="hidden" id="type_value" th:value="${model?.resourceType?.name()}"/>
+						<select name="resourceType" id="type" lay-verify="required">
+							<option  value="DIR">目录</option>
+							<option  value="MENU">左侧菜单</option>
+							<option  value="BUTTON">按钮</option>
+						</select>
+					</div>
+				</div>
 					<div class="layui-form-item">
 						<div class="layui-input-block">
 							<button class="layui-btn layui-btn-normal" lay-submit="lay-submit" lay-filter="formDemo">立即提交</button>
@@ -62,11 +73,13 @@
 				var form = layui.form(),
                     $ = layui.jquery;
 				form.render();
-				$("select").val($("#select_tmp").val());
+				$("#parentId").val($("#select_tmp").val());
+				$("#type").val($("#type_value").val());
                 form.render('select');
+
 				form.on('submit(formDemo)', function(data) {
 				    $.ajax({
-						url:"/addPermission",
+						url:"/admin/addPermission",
 						type:"POST",
 						data:JSON.stringify(data.field),
                         async: false,

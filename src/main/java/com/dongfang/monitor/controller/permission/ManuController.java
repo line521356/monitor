@@ -30,21 +30,21 @@ public class ManuController {
 
 
 
-    @GetMapping("/permission")
+    @GetMapping("/admin/permission")
     public String permission(Model model){
         List <Permission> permissionList =  permissionService.getAllParentPermission();
         model.addAttribute("permissionList",permissionList);
         return "/admin/permission";
     }
 
-    @GetMapping("/role")
+    @GetMapping("/admin/role")
     public String role(Model model){
             List <Role> roleList = roleService.getAllRole();
             model.addAttribute("roleList",roleList);
         return "/admin/role";
     }
 
-    @GetMapping("/menuAddOrUpdate")
+    @GetMapping("/admin/menuAddOrUpdate")
     public String manuAddOrUpdate(Long id, Model model, String type){
 
         List<Permission> permissionList = permissionService.getAll();
@@ -64,7 +64,7 @@ public class ManuController {
         return "/admin/menu-add";
     }
 
-    @PostMapping("/addPermission")
+    @PostMapping("/admin/addPermission")
     @ResponseBody
     public JSONObject saveOrUpdateMenu(@RequestBody PermissionVo permissionVo){
         if(permissionService.isNonRepeat(permissionVo)){
@@ -75,8 +75,11 @@ public class ManuController {
             permission.setId(permissionVo.getId());
             permission.setAvailable(true);
             permission.setPermission(permissionVo.getPermission());
-            permission.setParentPermission(permissionService.findById(permissionVo.getParentId()));
-            permission.setResourceType(permissionVo.getParentId() == 0?ResourceTypeEnum.MENU:ResourceTypeEnum.BUTTON);
+            if(permissionVo.getParentId()!=null){
+                permission.setParentPermission(permissionService.findById(permissionVo.getParentId()));
+            }
+
+            permission.setResourceType(permissionVo.getResourceType());
             permissionService.save(permission);
             return GlobalConstant.constructResponse(0,"添加成功",null);
 
@@ -87,7 +90,7 @@ public class ManuController {
     }
 
     @ResponseBody
-    @GetMapping("/menuDelete")
+    @GetMapping("/admin/menuDelete")
     public JSONObject menuDelete(Long id){
         Permission permission = permissionService.findById(id);
         if(permission!=null){
@@ -102,7 +105,7 @@ public class ManuController {
 
     }
 
-    @GetMapping("/roleAddOrUpdate")
+    @GetMapping("/admin/roleAddOrUpdate")
     public String roleAddOrUpdate(Long id, Model model){
         if(id!=null){
             Role role = roleService.findById(id);
@@ -111,7 +114,7 @@ public class ManuController {
         return "/admin/role-add";
     }
 
-    @GetMapping("/getTreePermission")
+    @GetMapping("/admin/getTreePermission")
     @ResponseBody
     public JSONArray getTreePermission(){
         List <Permission> permissionList =  permissionService.getAllParentPermission();
@@ -138,7 +141,7 @@ public class ManuController {
         return tree;
     }
 
-    @PostMapping("/addRole")
+    @PostMapping("/admin/addRole")
     @ResponseBody
     public JSONObject addRole(@RequestBody RoleVo roleVo){
         if(roleService.isNonRepeat(roleVo)){
@@ -157,7 +160,7 @@ public class ManuController {
     }
 
     @ResponseBody
-    @GetMapping("/roleDelete")
+    @GetMapping("/admin/roleDelete")
     public JSONObject roleDelete(Long id){
         Role role = roleService.findById(id);
         if(role!=null){

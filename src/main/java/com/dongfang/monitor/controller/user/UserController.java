@@ -2,6 +2,7 @@ package com.dongfang.monitor.controller.user;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dongfang.monitor.enums.UserStateEnum;
+import com.dongfang.monitor.model.Role;
 import com.dongfang.monitor.model.User;
 import com.dongfang.monitor.service.RoleService;
 import com.dongfang.monitor.service.UserService;
@@ -29,14 +30,14 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
-    @GetMapping("/user")
+    @GetMapping("/admin/user")
     public String user(Model model){
         List<User> userList = userService.getAllUser();
         model.addAttribute("userList",userList);
         return "/admin/user";
     }
 
-    @GetMapping("/userAddOrUpdate")
+    @GetMapping("/admin/userAddOrUpdate")
     public String userAddOrUpdate(Long id, Model model){
         if(id!=null){
             User user = userService.findById(id);
@@ -47,13 +48,21 @@ public class UserController {
 
     }
 
-    @PostMapping("/addUser")
+    @PostMapping("/admin/addUser")
     @ResponseBody
     public JSONObject addUser(@RequestBody UserVo userVo){
         if(userService.isNonRepeat(userVo)){
             User user = null;
             if(userVo.getId()!=null){
-
+                user = userService.findById(userVo.getId());
+                user.setUsername(userVo.getUsername());
+                if(userVo.getPassword()!=null&&!userVo.getPassword().trim().equals("")){
+                    user.setPassword(userVo.getPassword());
+                }
+                user.setName(userVo.getName());
+                user.setSalt(UUID.randomUUID().toString());
+                user.setState(UserStateEnum.ACTIVATE);
+                user.setRoleList(roleService.findByIds(Arrays.asList(userVo.getRoleList())));
             }else{
                 user = new User();
                 user.setUsername(userVo.getUsername());
@@ -67,6 +76,21 @@ public class UserController {
             return GlobalConstant.constructResponse(0,"添加成功",null);
         }else{
             return GlobalConstant.constructResponse(1,"用户名重复",null);
+        }
+    }
+
+    @GetMapping("/admin/userDelete")
+    @ResponseBody
+    public JSONObject userDelete(Long id){
+        User user = userService.findById(id);
+        if(user!=null){
+            user.setState(UserStateEnum.INACTIVATION);
+            userService.save(user);
+            return GlobalConstant.constructResponse(0,"删除成功",null);
+
+        }else{
+            return GlobalConstant.constructResponse(1,"该账号不存在",null);
+
         }
     }
 }
