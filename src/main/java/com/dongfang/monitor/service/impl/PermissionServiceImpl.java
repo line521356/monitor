@@ -28,8 +28,8 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public Boolean isNonRepeat(PermissionVo permissionVo) {
-        if(permissionRepository.countByAvailableAndPermission(true,permissionVo.getPermission())>0
-                ||permissionRepository.countByAvailableAndName(true,permissionVo.getName())>0){
+        if((permissionVo.getId()==null||permissionVo.getId()==0)&&(permissionRepository.countByAvailableAndPermission(true,permissionVo.getPermission())>0
+                ||permissionRepository.countByAvailableAndName(true,permissionVo.getName())>0)){
             return false;
         }
         return true;
@@ -38,6 +38,11 @@ public class PermissionServiceImpl implements PermissionService {
     @Override
     public Permission findById(Long id) {
         return permissionRepository.findOne(id);
+    }
+
+    @Override
+    public List<Permission> findByIds(List<Long> ids) {
+        return permissionRepository.findAll(ids);
     }
 
     @Override

@@ -12,10 +12,52 @@
 </head>
 <body>
 
-<div class="layui-tab-content">
-    <div class="layui-tab-item layui-show" style="background: #f5f5f5;">
-        角色管理
+<div class="page-content-wrap">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline tool-btn">
+                <button class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" data-url="/roleAddOrUpdate"><i class="layui-icon">&#xe654;</i></button>
+            </div>
+            <div class="layui-inline">
+                <input type="text" name="title" required="required" lay-verify="required" placeholder="请输入角色名称" autocomplete="off" class="layui-input"/>
+            </div>
+            <button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
+        </div>
+    </form>
+    <div class="layui-form" id="table-list">
+        <table class="layui-table" lay-skin="line">
+            <colgroup>
+                <col width="50"/>
+                <col class="hidden-xs" width="300"/>
+
+                <col/>
+                <col width="300"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"/></th>
+                <th class="hidden-xs">角色名</th>
+                <th class="hidden-xs">角色描述</th>
+                <th>操作</th>
+            </tr>
+            <tbody>
+                <tr  th:each="role:${roleList}">
+                    <td><input type="checkbox" th:attr="data-id=${role.id}" name="" lay-skin="primary" /></td>
+                    <td class="hidden-xs" th:text="${role.role}"></td>
+                    <td class="hidden-xs" th:text="${role.description}"></td>
+                    <td>
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-mini layui-btn-normal  add-btn" th:attr="data-id=${role.id},data-url=@{/roleAddOrUpdate(id=${role.id})}"><i class="layui-icon">&#xe642;</i></button>
+                            <button class="layui-btn layui-btn-mini layui-btn-danger del-btn" th:attr="data-id=${role.id},data-url=@{/roleDelete(id=${role.id})}"><i class="layui-icon">&#xe640;</i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            </thead>
+        </table>
     </div>
+
+
 </div>
 
 

@@ -26,7 +26,7 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 	$('.addBtn').click(function() {
 		var url=$(this).attr('data-url');
 		//将iframeObj传递给父级窗口,执行操作完成刷新
-		parent.page("菜单添加", url, iframeObj, w = "700px", h = "620px");
+		parent.page("添加", url, iframeObj, w = "700px", h = "620px");
 		return false;
 
 	}).mouseenter(function() {
@@ -76,24 +76,10 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 	$('#table-list').on('click', '.add-btn', function() {
 		var url=$(this).attr('data-url');
 		//将iframeObj传递给父级窗口
-		parent.page("菜单添加", url, iframeObj, w = "700px", h = "620px");
+		parent.page("添加", url, iframeObj, w = "700px", h = "620px");
 		return false;
 	})
-	//列表删除
-	$('#table-list').on('click', '.del-btn', function() {
-		var url=$(this).attr('data-url');
-		var id = $(this).attr('data-id');
-		dialog.confirm({
-			message:'您确定要进行删除吗？',
-			success:function(){
-				layer.msg('确定了')
-			},
-			cancel:function(){
-				layer.msg('取消了')
-			}
-		})
-		return false;
-	})
+
 	//列表跳转
 	$('#table-list,.tool-btn').on('click', '.go-btn', function() {
 		var url=$(this).attr('data-url');
@@ -101,13 +87,39 @@ layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog',   'element
 		window.location.href=url+"?id="+id;
 		return false;
 	})
+    //列表删除
+    $('#table-list').on('click', '.del-btn', function() {
+        var url=$(this).attr('data-url');
+        var id = $(this).attr('data-id');
+        dialog.confirm({
+            message:'您确定要进行删除吗？',
+            success:function(){
+            	$.ajax({
+                    url:url,
+                    type:"GET",
+                    dataType:"json",
+                    contentType:"application/json",
+                    success:function(data){
+                        if(data.code == 0){
+                            layer.msg(data.msg);
+                            window.parent.location.reload();
+                        }else{
+                            layer.msg(data.msg);
+                            return false;
+                        }
+                    }
+				});
+            }
+        })
+        return false;
+    })
 	//编辑栏目
 	$('#table-list').on('click', '.edit-btn', function() {
 		var That = $(this);
 		var id = That.attr('data-id');
 		var url=That.attr('data-url');
 		//将iframeObj传递给父级窗口
-		parent.page("菜单编辑", url + "?id=" + id, iframeObj, w = "700px", h = "620px");
+		parent.page("编辑", url + "?id=" + id, iframeObj, w = "700px", h = "620px");
 		return false;
 	})
 

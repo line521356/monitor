@@ -8,7 +8,7 @@
 		<meta name="renderer" content="webkit"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title>添加按钮</title>
+		<title>添加角色</title>
 		<link rel="stylesheet" href="/layui/css/layui.css" media="all"/>
 		<link rel="stylesheet" type="text/css" href="/css/admin.css"/>
 	</head>
@@ -17,33 +17,23 @@
 			<form class="layui-form" style="width: 90%;padding-top: 20px;">
 					<input type="hidden" name="id" th:value="${model?.id}"/>
 					<div class="layui-form-item">
-						<label class="layui-form-label" >父节点：</label>
-						<input type="hidden" id="select_tmp" th:value="${model?.parentPermission?.id}"/>
-						<div class="layui-input-block">
-							<select name="parentId" lay-verify="required" th:value="1">
-								<option value="0">作为一级菜单</option>
-								<option th:each="permission:${permissionList}" th:value="${permission.id}" th:text="${permission.name}" ></option>
-							</select>
-						</div>
-					</div>
-					<div class="layui-form-item">
 						<label class="layui-form-label">名称：</label>
 						<div class="layui-input-block">
-							<input type="text" name="name" th:value="${model?.name}" required="required" lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input"/>
+							<input type="text" name="role" th:value="${model?.role}" required="required" lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input"/>
 						</div>
 					</div>
 
 				<div class="layui-form-item">
-					<label class="layui-form-label">url：</label>
+					<label class="layui-form-label">描述：</label>
 					<div class="layui-input-block">
-						<input type="text" name="url" th:value="${model?.url}" required="required" lay-verify="required" placeholder="请输入url" autocomplete="off" class="layui-input"/>
+						<input type="text" name="description" th:value="${model?.description}" required="required" lay-verify="required" placeholder="请输入权限描述" autocomplete="off" class="layui-input"/>
 					</div>
 				</div>
 
 				<div class="layui-form-item">
-					<label class="layui-form-label">权限code：</label>
+					<label class="layui-form-label">菜单树：</label>
 					<div class="layui-input-block">
-						<input type="text" name="permission" th:value="${model?.permission}" required="required" lay-verify="required" placeholder="请输入权限code" autocomplete="off" class="layui-input"/>
+						<div id="permission_tree"></div>
 					</div>
 				</div>
 
@@ -53,22 +43,62 @@
 							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 						</div>
 					</div>
+				<div style="display: none">
+					<span name="had_choose_permission" th:each="permission:${model?.permissionList}" th:text="${permission.id}"></span>
+				</div>
 				</form>
 		</div>
 
 		<script src="/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/lib/layui-xtree.js" type="text/javascript" charset="utf-8"></script>
 		<script>
+
 			layui.use(['form','jquery'], function() {
+
 				var form = layui.form(),
                     $ = layui.jquery;
 				form.render();
 				$("select").val($("#select_tmp").val());
                 form.render('select');
+                var array = new Array();
+                var had_choose_permission = $("span[name='had_choose_permission']");
+				$(had_choose_permission).each(function(){
+				    array.push($(this).text());
+				});
+                var xtree = new layuiXtree({
+                    elem: 'permission_tree'
+                    , form: form
+                    , data: '/getTreePermission'
+                    , isopen: true
+                    , color: "#000"
+                    , icon: {
+                        open: ""
+                        , close: ""
+                        , end: ""
+                    }
+                    ,had_choose:array
+
+
+
+                });
+
+
 				form.on('submit(formDemo)', function(data) {
+                    var array = new Array();
+                    $(xtree.GetChecked()).each(function(){
+                        array.push($(this).val());
+					});
+                    json = {
+                        id:$("input[name='id']").val(),
+                        role:$("input[name='role']").val(),
+                        description:$("input[name='description']").val(),
+                        permissionList:array
+
+                    };
 				    $.ajax({
-						url:"/addPermission",
+						url:"/addRole",
 						type:"POST",
-						data:JSON.stringify(data.field),
+						data:JSON.stringify(json),
                         async: false,
                         dataType:"json",
                         contentType:"application/json",

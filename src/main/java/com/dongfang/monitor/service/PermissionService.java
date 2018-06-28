@@ -19,5 +19,7 @@ public interface PermissionService {
 
     Permission findById(Long id);
 
+    List <Permission> findByIds(List <Long> ids);
+
     List <Permission> getAll();
 }
