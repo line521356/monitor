@@ -12,9 +12,49 @@
 </head>
 <body>
 
-<div class="layui-tab-content">
-    <div class="layui-tab-item layui-show" style="background: #f5f5f5;">
-        用户管理
+<div class="page-content-wrap">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline tool-btn">
+                <button class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" data-url="/userAddOrUpdate"><i class="layui-icon">&#xe654;</i></button>
+            </div>
+            <div class="layui-inline">
+                <input type="text" name="title" required="required" lay-verify="required" placeholder="请输入用户名称" autocomplete="off" class="layui-input"/>
+            </div>
+            <button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
+        </div>
+    </form>
+    <div class="layui-form" id="table-list">
+        <table class="layui-table" lay-skin="line">
+            <colgroup>
+                <col width="50"/>
+                <col class="hidden-xs" width="300"/>
+
+                <col/>
+                <col width="300"/>
+            </colgroup>
+            <thead>
+            <tr>
+                <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"/></th>
+                <th class="hidden-xs">姓名</th>
+                <th class="hidden-xs">用户名</th>
+                <th>操作</th>
+            </tr>
+            <tbody>
+            <tr  th:each="user:${userList}">
+                <td><input type="checkbox" th:attr="data-id=${user.id}" name="" lay-skin="primary" /></td>
+                <td class="hidden-xs" th:text="${user.name}"></td>
+                <td class="hidden-xs" th:text="${user.username}"></td>
+                <td>
+                    <div class="layui-inline">
+                        <button class="layui-btn layui-btn-mini layui-btn-normal  add-btn" th:attr="data-id=${user.id},data-url=@{/userAddOrUpdate(id=${user.id})}"><i class="layui-icon">&#xe642;</i></button>
+                        <button class="layui-btn layui-btn-mini layui-btn-danger del-btn" th:attr="data-id=${user.id},data-url=@{/userDelete(id=${user.id})}"><i class="layui-icon">&#xe640;</i></button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+            </thead>
+        </table>
     </div>
 </div>
 

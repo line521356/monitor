@@ -17,33 +17,32 @@
 			<form class="layui-form" style="width: 90%;padding-top: 20px;">
 					<input type="hidden" name="id" th:value="${model?.id}"/>
 					<div class="layui-form-item">
-						<label class="layui-form-label" >父节点：</label>
-						<input type="hidden" id="select_tmp" th:value="${model?.parentPermission?.id}"/>
+						<label class="layui-form-label">用户名：</label>
 						<div class="layui-input-block">
-							<select name="parentId" lay-verify="required" th:value="1">
-								<option value="0">作为一级菜单</option>
-								<option th:each="permission:${permissionList}" th:value="${permission.id}" th:text="${permission.name}" ></option>
-							</select>
-						</div>
-					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">名称：</label>
-						<div class="layui-input-block">
-							<input type="text" name="name" th:value="${model?.name}" required="required" lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input"/>
+							<input type="text" name="username" th:value="${model?.username}" required="required" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input"/>
 						</div>
 					</div>
 
 				<div class="layui-form-item">
-					<label class="layui-form-label">url：</label>
+					<label class="layui-form-label">密码：</label>
 					<div class="layui-input-block">
-						<input type="text" name="url" th:value="${model?.url}" required="required" lay-verify="required" placeholder="请输入url" autocomplete="off" class="layui-input"/>
+						<input type="text" name="password" required="required" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input"/>
 					</div>
 				</div>
 
 				<div class="layui-form-item">
-					<label class="layui-form-label">权限code：</label>
+					<label class="layui-form-label">姓名：</label>
 					<div class="layui-input-block">
-						<input type="text" name="permission" th:value="${model?.permission}" required="required" lay-verify="required" placeholder="请输入权限code" autocomplete="off" class="layui-input"/>
+						<input type="text" name="name" th:value="${model?.name}" required="required" lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input"/>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">角色：</label>
+					<div class="layui-input-block">
+						<th:block th:each="role:${roleList}">
+							<input name="roleList" type="checkbox" required="required" lay-verify="required" class="layui-form-checkbox" th:value="${role.id}" th:text="${role.role}"/>
+						</th:block>
 					</div>
 				</div>
 

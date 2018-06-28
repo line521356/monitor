@@ -1,5 +1,8 @@
 package com.dongfang.monitor.model;
 
+
+import com.dongfang.monitor.enums.UserStateEnum;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -23,8 +26,9 @@ public class User implements Serializable {
     @Column(name = "salt")
     private String salt;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "state")
-    private byte state;
+    private UserStateEnum state;
 
     @ManyToMany(fetch= FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns ={@JoinColumn(name = "role_id") })
@@ -78,11 +82,11 @@ public class User implements Serializable {
         this.salt = salt;
     }
 
-    public byte getState() {
+    public UserStateEnum getState() {
         return state;
     }
 
-    public void setState(byte state) {
+    public void setState(UserStateEnum state) {
         this.state = state;
     }
 

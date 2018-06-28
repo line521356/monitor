@@ -15,11 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+
 
 @Controller
 public class ManuController {
@@ -41,14 +39,9 @@ public class ManuController {
 
     @GetMapping("/role")
     public String role(Model model){
-        List <Role> roleList = roleService.getAllRole();
-        model.addAttribute("roleList",roleList);
+            List <Role> roleList = roleService.getAllRole();
+            model.addAttribute("roleList",roleList);
         return "/admin/role";
-    }
-
-    @GetMapping("/user")
-    public String user(){
-        return "/admin/user";
     }
 
     @GetMapping("/menuAddOrUpdate")

@@ -1,0 +1,72 @@
+package com.dongfang.monitor.controller.user;
+
+import com.alibaba.fastjson.JSONObject;
+import com.dongfang.monitor.enums.UserStateEnum;
+import com.dongfang.monitor.model.User;
+import com.dongfang.monitor.service.RoleService;
+import com.dongfang.monitor.service.UserService;
+import com.dongfang.monitor.utils.GlobalConstant;
+import com.dongfang.monitor.vo.UserVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
+
+@Controller
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
+
+    @GetMapping("/user")
+    public String user(Model model){
+        List<User> userList = userService.getAllUser();
+        model.addAttribute("userList",userList);
+        return "/admin/user";
+    }
+
+    @GetMapping("/userAddOrUpdate")
+    public String userAddOrUpdate(Long id, Model model){
+        if(id!=null){
+            User user = userService.findById(id);
+            model.addAttribute("model",user);
+        }
+        model.addAttribute("roleList",roleService.getAllRole());
+        return "/admin/user-add";
+
+    }
+
+    @PostMapping("/addUser")
+    @ResponseBody
+    public JSONObject addUser(@RequestBody UserVo userVo){
+        if(userService.isNonRepeat(userVo)){
+            User user = null;
+            if(userVo.getId()!=null){
+
+            }else{
+                user = new User();
+                user.setUsername(userVo.getUsername());
+                user.setPassword(userVo.getPassword());
+                user.setName(userVo.getName());
+                user.setSalt(UUID.randomUUID().toString());
+                user.setState(UserStateEnum.ACTIVATE);
+                user.setRoleList(roleService.findByIds(Arrays.asList(userVo.getRoleList())));
+            }
+            userService.save(user);
+            return GlobalConstant.constructResponse(0,"添加成功",null);
+        }else{
+            return GlobalConstant.constructResponse(1,"用户名重复",null);
+        }
+    }
+}

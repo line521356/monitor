@@ -3,8 +3,6 @@ package com.dongfang.monitor.model;
 import com.dongfang.monitor.enums.ResourceTypeEnum;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
