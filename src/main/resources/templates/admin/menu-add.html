@@ -53,6 +53,7 @@
 						<input type="hidden" id="type_value" th:value="${model?.resourceType?.name()}"/>
 						<select name="resourceType" id="type" lay-verify="required">
 							<option  value="DIR">目录</option>
+							<option  value="TOPMENU">顶级菜单</option>
 							<option  value="MENU">左侧菜单</option>
 							<option  value="BUTTON">按钮</option>
 						</select>

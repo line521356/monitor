@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface PermissionRepository extends BaseRepository<Permission, Long>,JpaSpecificationExecutor<Permission> {
 
-    List<Permission> findByResourceTypeAndAvailable(ResourceTypeEnum resourceTypeEnum, Boolean available);
+    List<Permission> findByResourceTypeInAndAvailable(List <ResourceTypeEnum> resourceTypeEnumList, Boolean available);
 
     Integer countByAvailableAndName(Boolean available,String name);
 

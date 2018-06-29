@@ -1,6 +1,7 @@
 package com.dongfang.monitor.service;
 
 import com.dongfang.monitor.model.Permission;
+import com.dongfang.monitor.model.User;
 import com.dongfang.monitor.vo.PermissionVo;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface PermissionService {
     List <Permission> findByIds(List <Long> ids);
 
     List <Permission> getAll();
+
+    List <Permission> findUserPromission(User user);
 }

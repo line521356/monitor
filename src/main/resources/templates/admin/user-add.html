@@ -26,7 +26,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">密码：</label>
 					<div class="layui-input-block">
-						<input type="text" name="password" required="required" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input"/>
+						<input type="text" name="password" required="required" placeholder="请输入密码" autocomplete="off" class="layui-input"/>
 					</div>
 				</div>
 
@@ -36,13 +36,13 @@
 						<input type="text" name="name" th:value="${model?.name}" required="required" lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input"/>
 					</div>
 				</div>
-
+				<div style="display: none">
+					<span th:name="had_checked_role_checkbox" th:each="role:${model.roleList}" th:text="${role.id}"></span>
+				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">角色：</label>
-					<div class="layui-input-block">
-						<th:block th:each="role:${roleList}">
-							<input name="roleList" type="checkbox" required="required" lay-verify="required" class="layui-form-checkbox" th:value="${role.id}" th:text="${role.role}"/>
-						</th:block>
+					<div class="layui-input-block" th:each="role:${roleList}">
+							<input  name="roleList" type="checkbox" required="required" lay-verify="required" class="layui-form-checkbox" th:value="${role.id}" th:text="${role.role}"/>
 					</div>
 				</div>
 
@@ -62,7 +62,15 @@
                     $ = layui.jquery;
 				form.render();
 				$("select").val($("#select_tmp").val());
-                form.render('select');
+				$("span[name='had_checked_role_checkbox']").each(function(){
+				    var $checked_text = $(this).text();
+                    $("input[name='roleList']").each(function(){
+                        if($checked_text==$(this).val()){
+                            $(this).attr("checked",true);
+						}
+                    });
+				});
+                form.render();
 				form.on('submit(formDemo)', function(data) {
                     var array = new Array();
                     $("input[name='roleList']:checked").each(function(){

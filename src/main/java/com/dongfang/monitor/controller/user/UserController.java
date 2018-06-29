@@ -34,7 +34,7 @@ public class UserController {
     public String user(Model model){
         List<User> userList = userService.getAllUser();
         model.addAttribute("userList",userList);
-        return "/admin/user";
+        return "admin/user";
     }
 
     @GetMapping("/admin/userAddOrUpdate")
@@ -44,7 +44,7 @@ public class UserController {
             model.addAttribute("model",user);
         }
         model.addAttribute("roleList",roleService.getAllRole());
-        return "/admin/user-add";
+        return "admin/user-add";
 
     }
 

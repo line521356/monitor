@@ -2,7 +2,6 @@ package com.dongfang.monitor.controller.permission;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.dongfang.monitor.enums.ResourceTypeEnum;
 import com.dongfang.monitor.model.Permission;
 import com.dongfang.monitor.model.Role;
 import com.dongfang.monitor.service.PermissionService;
@@ -34,14 +33,14 @@ public class ManuController {
     public String permission(Model model){
         List <Permission> permissionList =  permissionService.getAllParentPermission();
         model.addAttribute("permissionList",permissionList);
-        return "/admin/permission";
+        return "admin/permission";
     }
 
     @GetMapping("/admin/role")
     public String role(Model model){
             List <Role> roleList = roleService.getAllRole();
             model.addAttribute("roleList",roleList);
-        return "/admin/role";
+        return "admin/role";
     }
 
     @GetMapping("/admin/menuAddOrUpdate")
@@ -61,7 +60,7 @@ public class ManuController {
             model.addAttribute("model",permission);
             model.addAttribute("type",type);
         }
-        return "/admin/menu-add";
+        return "admin/menu-add";
     }
 
     @PostMapping("/admin/addPermission")
@@ -111,7 +110,7 @@ public class ManuController {
             Role role = roleService.findById(id);
             model.addAttribute("model",role);
         }
-        return "/admin/role-add";
+        return "admin/role-add";
     }
 
     @GetMapping("/admin/getTreePermission")

@@ -1,6 +1,7 @@
 package com.dongfang.monitor.controller.login;
 
 import com.dongfang.monitor.model.User;
+import com.dongfang.monitor.service.PermissionService;
 import com.dongfang.monitor.utils.GlobalConstant;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -26,6 +27,9 @@ public class LoginController {
 
     @Autowired
     DefaultKaptcha defaultKaptcha;
+
+    @Autowired
+    PermissionService permissionService;
 
     /**
      * 跳登录页
@@ -100,8 +104,9 @@ public class LoginController {
     }
 
     @GetMapping("/index")
-    public String index(HttpSession httpSession){
-
+    public String index(HttpSession httpSession,Model model){
+        User user = (User) httpSession.getAttribute(GlobalConstant.USER_SESSION_KEY);
+        model.addAttribute("permissionList",permissionService.findUserPromission(user));
         return "index";
     }
 
