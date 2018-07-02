@@ -1,8 +1,8 @@
 package com.dongfang.monitor.service.impl;
 
-import com.dongfang.monitor.dao.UserRepository;
+import com.dongfang.monitor.dao.monitor.UserRepository;
 import com.dongfang.monitor.enums.UserStateEnum;
-import com.dongfang.monitor.model.User;
+import com.dongfang.monitor.model.monitor.User;
 import com.dongfang.monitor.service.UserService;
 import com.dongfang.monitor.vo.UserVo;
 import org.springframework.stereotype.Service;

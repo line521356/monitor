@@ -1,8 +1,5 @@
 package com.dongfang.monitor;
 
-import com.dongfang.monitor.enums.ResourceTypeEnum;
-import com.dongfang.monitor.model.Permission;
-import com.dongfang.monitor.model.User;
 import com.dongfang.monitor.service.PermissionService;
 import com.dongfang.monitor.service.UserService;
 import com.dongfang.monitor.support.dao.reposiotry.base.BaseRepositoryFactoryBean;
@@ -14,7 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = {"com.dongfang.monitor.dao"},repositoryFactoryBeanClass = BaseRepositoryFactoryBean.class)
 public class MonitorApplication implements ApplicationRunner {
 
     public static void main(String[] args) {

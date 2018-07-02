@@ -1,7 +1,7 @@
-package com.dongfang.monitor.dao;
+package com.dongfang.monitor.dao.monitor;
 
 import com.dongfang.monitor.enums.ResourceTypeEnum;
-import com.dongfang.monitor.model.Permission;
+import com.dongfang.monitor.model.monitor.Permission;
 import com.dongfang.monitor.support.dao.reposiotry.base.BaseRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

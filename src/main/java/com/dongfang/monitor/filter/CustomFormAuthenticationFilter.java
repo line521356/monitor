@@ -1,6 +1,6 @@
 package com.dongfang.monitor.filter;
 
-import com.dongfang.monitor.model.User;
+import com.dongfang.monitor.model.monitor.User;
 import com.dongfang.monitor.utils.GlobalConstant;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;

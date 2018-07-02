@@ -2,8 +2,7 @@ package com.dongfang.monitor.controller.user;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dongfang.monitor.enums.UserStateEnum;
-import com.dongfang.monitor.model.Role;
-import com.dongfang.monitor.model.User;
+import com.dongfang.monitor.model.monitor.User;
 import com.dongfang.monitor.service.RoleService;
 import com.dongfang.monitor.service.UserService;
 import com.dongfang.monitor.utils.GlobalConstant;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;

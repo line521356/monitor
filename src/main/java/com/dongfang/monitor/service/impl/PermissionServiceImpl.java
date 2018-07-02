@@ -1,19 +1,17 @@
 package com.dongfang.monitor.service.impl;
 
-import com.dongfang.monitor.dao.PermissionRepository;
-import com.dongfang.monitor.dao.UserRepository;
+import com.dongfang.monitor.dao.monitor.PermissionRepository;
+import com.dongfang.monitor.dao.monitor.UserRepository;
 import com.dongfang.monitor.enums.ResourceTypeEnum;
-import com.dongfang.monitor.model.Permission;
-import com.dongfang.monitor.model.Role;
-import com.dongfang.monitor.model.User;
+import com.dongfang.monitor.model.monitor.Permission;
+import com.dongfang.monitor.model.monitor.Role;
+import com.dongfang.monitor.model.monitor.User;
 import com.dongfang.monitor.service.PermissionService;
-import com.dongfang.monitor.service.UserService;
 import com.dongfang.monitor.utils.GlobalConstant;
 import com.dongfang.monitor.vo.PermissionVo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.lang.reflect.Array;
 import java.util.*;
 
 @Service

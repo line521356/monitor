@@ -1,7 +1,7 @@
 package com.dongfang.monitor.service.impl;
 
-import com.dongfang.monitor.dao.RoleRepository;
-import com.dongfang.monitor.model.Role;
+import com.dongfang.monitor.dao.monitor.RoleRepository;
+import com.dongfang.monitor.model.monitor.Role;
 import com.dongfang.monitor.service.RoleService;
 import com.dongfang.monitor.vo.RoleVo;
 import org.springframework.stereotype.Service;

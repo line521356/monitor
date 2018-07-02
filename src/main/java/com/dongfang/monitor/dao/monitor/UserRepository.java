@@ -1,8 +1,7 @@
-package com.dongfang.monitor.dao;
+package com.dongfang.monitor.dao.monitor;
 
 import com.dongfang.monitor.enums.UserStateEnum;
-import com.dongfang.monitor.model.User;
-import com.dongfang.monitor.service.UserService;
+import com.dongfang.monitor.model.monitor.User;
 import com.dongfang.monitor.support.dao.reposiotry.base.BaseRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

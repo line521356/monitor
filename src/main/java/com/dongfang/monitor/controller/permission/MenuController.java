@@ -2,8 +2,8 @@ package com.dongfang.monitor.controller.permission;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.dongfang.monitor.model.Permission;
-import com.dongfang.monitor.model.Role;
+import com.dongfang.monitor.model.monitor.Permission;
+import com.dongfang.monitor.model.monitor.Role;
 import com.dongfang.monitor.service.PermissionService;
 import com.dongfang.monitor.service.RoleService;
 import com.dongfang.monitor.utils.GlobalConstant;

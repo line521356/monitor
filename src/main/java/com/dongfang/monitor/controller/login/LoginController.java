@@ -1,6 +1,6 @@
 package com.dongfang.monitor.controller.login;
 
-import com.dongfang.monitor.model.User;
+import com.dongfang.monitor.model.monitor.User;
 import com.dongfang.monitor.service.PermissionService;
 import com.dongfang.monitor.utils.GlobalConstant;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
@@ -20,7 +20,6 @@ import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Map;
 
 @Controller
 public class LoginController {

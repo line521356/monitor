@@ -1,7 +1,7 @@
 package com.dongfang.monitor.service;
 
-import com.dongfang.monitor.model.Permission;
-import com.dongfang.monitor.model.User;
+import com.dongfang.monitor.model.monitor.Permission;
+import com.dongfang.monitor.model.monitor.User;
 import com.dongfang.monitor.vo.PermissionVo;
 
 import java.util.List;

@@ -6,12 +6,18 @@ spring:
     static-path-pattern: /**
   session:
     store-type: none
+  #monitor-data-source
   datasource:
     url: jdbc:mysql://192.168.117.134:3306/monitor?serverTimezone=UTC
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
+    #hk-data-source
+    hk-news-datasource:
+      url: jdbc:mysql://192.168.117.134:3306/hk_news?serverTimezone=UTC
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
       hibernate:
         naming:

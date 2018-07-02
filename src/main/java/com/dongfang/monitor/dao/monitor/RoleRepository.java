@@ -1,6 +1,6 @@
-package com.dongfang.monitor.dao;
+package com.dongfang.monitor.dao.monitor;
 
-import com.dongfang.monitor.model.Role;
+import com.dongfang.monitor.model.monitor.Role;
 import com.dongfang.monitor.support.dao.reposiotry.base.BaseRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

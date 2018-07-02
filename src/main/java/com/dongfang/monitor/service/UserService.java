@@ -1,6 +1,6 @@
 package com.dongfang.monitor.service;
 
-import com.dongfang.monitor.model.User;
+import com.dongfang.monitor.model.monitor.User;
 import com.dongfang.monitor.vo.UserVo;
 
 import java.util.List;

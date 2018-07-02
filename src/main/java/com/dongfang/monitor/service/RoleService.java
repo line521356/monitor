@@ -1,6 +1,6 @@
 package com.dongfang.monitor.service;
 
-import com.dongfang.monitor.model.Role;
+import com.dongfang.monitor.model.monitor.Role;
 import com.dongfang.monitor.vo.RoleVo;
 
 import java.util.List;

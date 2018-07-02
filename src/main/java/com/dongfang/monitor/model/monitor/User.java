@@ -1,4 +1,4 @@
-package com.dongfang.monitor.model;
+package com.dongfang.monitor.model.monitor;
 
 
 import com.dongfang.monitor.enums.UserStateEnum;

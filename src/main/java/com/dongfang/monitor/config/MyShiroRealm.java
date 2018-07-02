@@ -1,8 +1,8 @@
 package com.dongfang.monitor.config;
 
-import com.dongfang.monitor.model.Permission;
-import com.dongfang.monitor.model.Role;
-import com.dongfang.monitor.model.User;
+import com.dongfang.monitor.model.monitor.Permission;
+import com.dongfang.monitor.model.monitor.Role;
+import com.dongfang.monitor.model.monitor.User;
 import com.dongfang.monitor.service.UserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
