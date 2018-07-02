@@ -120,4 +120,22 @@ public class PermissionServiceImpl implements PermissionService {
         }
         return end;
     }
+
+    @Override
+    public List<Permission> searchByName(String name) {
+        List <Permission> permissionList = permissionRepository.findByNameLikeAndAvailable("%"+name+"%",true);
+        List <Permission> parentPermissionList = new ArrayList<>();
+        Map <Long,Permission> map = new HashMap<>();
+        for (Permission permission : permissionList) {
+            if(permission.getParentPermission()==null){
+                map.put(permission.getId(),permission);
+            }else{
+                map.put(permission.getParentPermission().getId(),permission.getParentPermission());
+            }
+        }
+        for(Map.Entry<Long,Permission> entry:map.entrySet()){
+            parentPermissionList.add(entry.getValue());
+        }
+        return parentPermissionList;
+    }
 }

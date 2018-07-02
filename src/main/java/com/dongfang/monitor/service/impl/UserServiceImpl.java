@@ -22,6 +22,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> searchUserByUsername(String username) {
+        return userRepository.findByUsernameLikeAndState("%"+username+"%",UserStateEnum.ACTIVATE);
+    }
+
+    @Override
     public void save(User user) {
         userRepository.save(user);
     }

@@ -25,4 +25,6 @@ public interface PermissionService {
     List <Permission> getAll();
 
     List <Permission> findUserPromission(User user);
+
+    List <Permission> searchByName(String name);
 }

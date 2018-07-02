@@ -13,13 +13,13 @@
 <body>
 
 <div class="page-content-wrap">
-    <form class="layui-form" action="">
+    <form class="layui-form" action="/admin/permission">
         <div class="layui-form-item">
             <div class="layui-inline tool-btn">
                 <button class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" data-url="/admin/menuAddOrUpdate"><i class="layui-icon">&#xe654;</i></button>
             </div>
             <div class="layui-inline">
-                <input type="text" name="title" required="required" lay-verify="required" placeholder="请输入权限名称" autocomplete="off" class="layui-input"/>
+                <input type="text" name="name" placeholder="请输入权限名称" autocomplete="off" class="layui-input"/>
             </div>
             <button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
         </div>

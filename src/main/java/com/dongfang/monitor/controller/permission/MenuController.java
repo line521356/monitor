@@ -9,6 +9,7 @@ import com.dongfang.monitor.service.RoleService;
 import com.dongfang.monitor.utils.GlobalConstant;
 import com.dongfang.monitor.vo.PermissionVo;
 import com.dongfang.monitor.vo.RoleVo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,7 @@ import java.util.List;
 
 
 @Controller
-public class ManuController {
+public class MenuController {
 
     @Autowired
     private PermissionService permissionService;
@@ -30,16 +31,26 @@ public class ManuController {
 
 
     @GetMapping("/admin/permission")
-    public String permission(Model model){
-        List <Permission> permissionList =  permissionService.getAllParentPermission();
+    public String permission(Model model,String name){
+        List <Permission> permissionList = null;
+        if(StringUtils.isNotEmpty(name)){
+            permissionList = permissionService.searchByName(name);
+        }else{
+            permissionList =  permissionService.getAllParentPermission();
+        }
         model.addAttribute("permissionList",permissionList);
         return "admin/permission";
     }
 
     @GetMapping("/admin/role")
-    public String role(Model model){
-            List <Role> roleList = roleService.getAllRole();
-            model.addAttribute("roleList",roleList);
+    public String role(Model model,String role){
+        List <Role> roleList = null;
+        if(StringUtils.isNotEmpty(role)){
+            roleList = roleService.searchByRole(role);
+        }else{
+            roleList = roleService.getAllRole();
+        }
+        model.addAttribute("roleList",roleList);
         return "admin/role";
     }
 
@@ -124,7 +135,7 @@ public class ManuController {
             dir.put("title",permission.getName());
             JSONArray childList = new JSONArray();
             for(Permission child:permission.getChildPermission()){
-                if(child.getAvailable()==true){
+                if(child.getAvailable()){
                     JSONObject node = new JSONObject();
                     node.put("value",child.getId());
                     node.put("title",child.getName());

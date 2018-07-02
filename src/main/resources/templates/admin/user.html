@@ -13,13 +13,13 @@
 <body>
 
 <div class="page-content-wrap">
-    <form class="layui-form" action="">
+    <form class="layui-form" action="/admin/user">
         <div class="layui-form-item">
             <div class="layui-inline tool-btn">
                 <button class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" data-url="/admin/userAddOrUpdate"><i class="layui-icon">&#xe654;</i></button>
             </div>
             <div class="layui-inline">
-                <input type="text" name="title" required="required" lay-verify="required" placeholder="请输入用户名称" autocomplete="off" class="layui-input"/>
+                <input type="text" name="username"  placeholder="请输入用户名称" autocomplete="off" class="layui-input"/>
             </div>
             <button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
         </div>
@@ -29,7 +29,7 @@
             <colgroup>
                 <col width="50"/>
                 <col class="hidden-xs" width="300"/>
-
+                <col class="hidden-xs" width="300"/>
                 <col/>
                 <col width="300"/>
             </colgroup>
@@ -38,6 +38,7 @@
                 <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"/></th>
                 <th class="hidden-xs">姓名</th>
                 <th class="hidden-xs">用户名</th>
+                <th class="hidden-xs">所在角色范围</th>
                 <th>操作</th>
             </tr>
             <tbody>
@@ -45,6 +46,9 @@
                 <td><input type="checkbox" th:attr="data-id=${user.id}" name="" lay-skin="primary" /></td>
                 <td class="hidden-xs" th:text="${user.name}"></td>
                 <td class="hidden-xs" th:text="${user.username}"></td>
+                <td class="hidden-xs">
+                    <th:block th:each="role:${user.roleList}" th:text="${role.role}+','"></th:block>
+                </td>
                 <td>
                     <div class="layui-inline">
                         <button class="layui-btn layui-btn-mini layui-btn-normal  add-btn" th:attr="data-id=${user.id},data-url=@{/admin/userAddOrUpdate(id=${user.id})}"><i class="layui-icon">&#xe642;</i></button>

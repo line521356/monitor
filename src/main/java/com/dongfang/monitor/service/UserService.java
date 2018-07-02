@@ -9,6 +9,8 @@ public interface UserService {
 
     User findByUsername(String username);
 
+    List <User> searchUserByUsername(String username);
+
     void save(User user);
 
     User findById(Long id);

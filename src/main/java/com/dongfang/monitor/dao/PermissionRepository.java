@@ -18,4 +18,6 @@ public interface PermissionRepository extends BaseRepository<Permission, Long>,J
     Integer countByAvailableAndPermission(Boolean available,String name);
 
     List<Permission>findByAvailable(Boolean available);
+
+    List <Permission> findByNameLikeAndAvailable(String name,Boolean available);
 }
