@@ -9,7 +9,8 @@ public class CrawlerCount implements Serializable {
 
     @Id
     @GeneratedValue
-    private Long newsId;
+    @Column(name = "news_id")
+    private Long id;
 
     @Column(name = "crawlerdate")
     private String crawlerdate;
@@ -29,12 +30,12 @@ public class CrawlerCount implements Serializable {
     @Column(name = "imgfitnum")
     private Long imgfitnum;
 
-    public Long getNewsId() {
-        return newsId;
+    public Long getId() {
+        return id;
     }
 
-    public void setNewsId(Long newsId) {
-        this.newsId = newsId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCrawlerdate() {

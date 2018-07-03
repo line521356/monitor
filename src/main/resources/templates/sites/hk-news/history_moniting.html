@@ -1,0 +1,71 @@
+<div class="page-content-wrap" xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+     xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <input type="text" id="date_history" name="date" placeholder="请输入日期" class="layui-input"/>
+            </div>
+            <div class="layui-inline">
+                <select lay-verify="required" lay-search="">
+                    <option></option>
+                    <option  th:each="urlForm:${urlFormList}" th:value="${urlForm}" th:text="${urlForm}"></option>
+                </select>
+            </div>
+            <button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
+        </div>
+    </form>
+
+    <div class="layui-card">
+        <div class="layui-card-header">
+            &#xe629;图标
+        </div>
+        <div class="layui-card-body">
+            <!--图表-->
+            <div class="chart-panel panel panel-default">
+                <div class="panel-body" id="chart" style="height: 376px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="layui-bg-orange"/>
+    <div class="layui-card">
+        <div class="layui-card-header">
+            &#xe629;具体统计
+        </div>
+        <div class="layui-card-body">
+            <div class="layui-form">
+                <table class="layui-table" lay-skin="line">
+                    <colgroup>
+                        <col class="hidden-xs" width="100"/>
+                        <col class="hidden-xs" width="100"/>
+                        <col class="hidden-xs" width="100"/>
+                        <col class="hidden-xs" width="100"/>
+                        <col class="hidden-xs" width="100"/>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th class="hidden-xs">时间</th>
+                        <th class="hidden-xs">来源</th>
+                        <th class="hidden-xs">抓取url总数</th>
+                        <th class="hidden-xs">正文符合规范url数量</th>
+                        <th class="hidden-xs">图片符合规范url数量</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="hidden-xs">asfa</td>
+                        <td class="hidden-xs">asfas</td>
+                        <td class="hidden-xs">asfa</td>
+                        <td class="hidden-xs">sfas</td>
+                        <td class="hidden-xs">fasfas</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
